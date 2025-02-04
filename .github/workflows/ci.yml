@@ -7,7 +7,7 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build-and-test:
+  e2e-tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -34,7 +34,6 @@ jobs:
     - name: Run e2e tests
       uses: cypress-io/github-action@v5
       with:
-        build: npm run build
         start: npm start
         wait-on: 'http://localhost:4200'
         browser: chrome
@@ -43,18 +42,8 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: test-results
+        name: cypress-results
         path: |
           cypress/videos/
           cypress/screenshots/
-          coverage/
         retention-days: 30
-
-    - name: Upload coverage reports
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage/lcov.info
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: true
