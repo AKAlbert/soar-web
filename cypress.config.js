@@ -7,8 +7,12 @@ module.exports = defineConfig({
       // implement node event listeners here
       require("@cypress/webpack-preprocessor")
     },
-    supportFile: "cypress/support/e2e.ts",
-    video: false
+    supportFile: false,
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    video: true,
+    screenshots: true,
+    viewportWidth: 1280,
+    viewportHeight: 720
   }
 })
 
