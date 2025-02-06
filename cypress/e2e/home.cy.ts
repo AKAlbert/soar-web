@@ -66,26 +66,23 @@ describe("OWASP Juice Shop Home Page", () => {
     // Store initial total price
     cy.get(HomePage.totalPrice).invoke('text').as('initialTotal')
     
-    // Delete the first product
-    HomePage.deleteProduct(0)
-    
     // Verify total price changed
     cy.get('@initialTotal').then((initialTotal) => {
       cy.get(HomePage.totalPrice).should('not.contain', initialTotal)
     })
 
-    // Proceed to checkout
-    HomePage.proceedToCheckout()
+    HomePage.addItemsToBasket()
 
     // Add address
     HomePage.addNewAddress()
-
     HomePage.fillAddressForm()
+
     // Select delivery method
     HomePage.selectDeliveryMethod()
 
     // Add credit card
     HomePage.addCreditCard()
     HomePage.placeOrder()
+
   })
 })
